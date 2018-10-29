@@ -1,0 +1,184 @@
+<mat-toolbar class="doc-action-bar" color="primary">
+	<a class="mat-button" mat-button="" (click)="onClickCancel()">
+		<mat-icon>cancel</mat-icon>
+		Отмена
+	</a>
+	<a class="mat-button" mat-button="" (click)="onClickSave()">
+		<mat-icon>save_alt</mat-icon>
+		Сохранить
+	</a>
+</mat-toolbar>
+
+
+
+<div class="form" [formGroup]="form">
+
+	<mat-card class="mat-card">
+		<mat-card-title class="mat-card-header">Клиентский валютный перевод</mat-card-title>
+	</mat-card>
+	
+	<mat-card class="mat-card">
+		<mat-grid-list [cols]="cols2" rowHeight="4em" (window:resize)="onResize($event)">
+			<mat-grid-tile>
+				<mat-form-field>
+					<input id="docNumber" type="number" matInput placeholder="Номер документа" formControlName="docNumber">
+					<mat-error *ngIf="form.controls.docNumber.errors?.required">Поле обязательно для заполнения</mat-error>
+				</mat-form-field>
+			</mat-grid-tile>
+			
+			<mat-grid-tile>
+				<mat-form-field style="float:right">
+					<input id="docDate" matInput [matDatepicker]="pickerDocDate" placeholder="Дата документа" formControlName="docDate">
+					<mat-error *ngIf="form.controls.docDate.errors?.required">Поле обязательно для заполнения</mat-error>
+			 		<mat-datepicker-toggle matSuffix [for]="pickerDocDate"></mat-datepicker-toggle>
+					<mat-datepicker #pickerDocDate></mat-datepicker>
+				</mat-form-field>
+			</mat-grid-tile>
+		</mat-grid-list>
+		
+		<mat-grid-list [cols]="cols3" rowHeight="4em" (window:resize)="onResize($event)">
+			<mat-grid-tile>
+				<mat-form-field>
+					<input id="docSum" matInput placeholder="32 Сумма перевода">
+				</mat-form-field>
+			</mat-grid-tile>
+				
+			<mat-grid-tile>
+				<mat-form-field>
+					<mat-select placeholder="Валюта" id="docCurrency">
+					    <mat-option *ngFor="let cash of cashes" [value]="cash.CODE">{{cash.NAME}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</mat-grid-tile>
+			
+			<mat-grid-tile>
+				<mat-form-field>
+					<input id="docDateVal" matInput [matDatepicker]="pickerDocDateVal" placeholder="Дата валютирования">
+			 		<mat-datepicker-toggle matSuffix [for]="pickerDocDateVal"></mat-datepicker-toggle>
+			 		<mat-datepicker #pickerDocDateVal></mat-datepicker>
+				</mat-form-field>		
+			</mat-grid-tile>	
+		</mat-grid-list>
+		
+		<mat-grid-list [cols]="cols2" rowHeight="4em" (window:resize)="onResize($event)">
+			<mat-grid-tile>
+				<mat-form-field>
+					<input id="docSourceSum" matInput placeholder="33 Исходная сумма">
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<mat-form-field>
+					<mat-select placeholder="Валюта">
+					    <mat-option *ngFor="let cash of cashes" [value]="cash.CODE">{{cash.NAME}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</mat-grid-tile>
+		</mat-grid-list>
+		
+		<mat-grid-list cols="1" rowHeight="4em">
+			<mat-grid-tile>
+				<mat-form-field>
+					<input id="docExchangeRate" matInput placeholder="36 Обменный курс">
+				</mat-form-field>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</mat-card>
+	
+	<mat-card class="mat-card">
+		<mat-grid-list cols="1" rowHeight="4em">
+			<mat-grid-tile>
+				<mat-form-field>
+					<input id="docExchangeRate" matInput placeholder="50 Отправитель">
+				</mat-form-field>
+			</mat-grid-tile>
+		</mat-grid-list>
+
+		<mat-grid-list cols="1" rowHeight="4em">
+			<mat-grid-tile>
+				<mat-form-field>
+					<input id="docExchangeRate" matInput placeholder="52 Банк отправителя">
+				</mat-form-field>
+			</mat-grid-tile>
+		</mat-grid-list>
+		
+		<mat-grid-list cols="1" rowHeight="4em">
+			<mat-grid-tile>
+				<mat-form-field>
+					<input id="docExchangeRate" matInput placeholder="53 Номер счёта дебетования">
+				</mat-form-field>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</mat-card>
+	
+	<mat-card class="mat-card">
+		<mat-grid-list cols="1" rowHeight="4em">
+			<mat-grid-tile>
+				<mat-form-field>
+					<input id="docExchangeRate" matInput placeholder="56 Банк - посредник">
+				</mat-form-field>
+			</mat-grid-tile>
+		</mat-grid-list>
+		
+		<mat-grid-list cols="1" rowHeight="4em">
+			<mat-grid-tile>
+				<mat-form-field>
+					<input id="docExchangeRate" matInput placeholder="57 Банк бенефициара">
+				</mat-form-field>
+			</mat-grid-tile>
+		</mat-grid-list>
+		
+		<mat-grid-list cols="1" rowHeight="4em">
+			<mat-grid-tile>
+				<mat-form-field>
+					<input id="docExchangeRate" matInput placeholder="59 Бенефициар">
+				</mat-form-field>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</mat-card>
+	
+
+	<mat-card class="mat-card">
+		<mat-grid-list cols="1" rowHeight="4em">
+			<mat-grid-tile>
+				<mat-form-field>
+					<input id="docExchangeRate" matInput placeholder="70 Детали платежа">
+				</mat-form-field>
+			</mat-grid-tile>
+		
+			<mat-grid-tile>
+				<mat-form-field>
+					<mat-select placeholder="71A Комиссия за перевод">
+					    <mat-option value="OUR">OUR - списать с нашего счета</mat-option>
+					    <mat-option value="BEN">BEN - отнести на счет бенефициара</mat-option>
+					    <mat-option value="SHA">SHA - списать с нашего счета и отнести на счет бенефициара</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</mat-grid-tile>
+			
+			<mat-grid-tile>
+				<mat-form-field>
+					<mat-select placeholder="Счёт списания комиссии">
+					    <mat-option value="11111111111111111111">11111111111111111111</mat-option>
+					    <mat-option value="22222222222222222222">22222222222222222222</mat-option>
+					    <mat-option value="33333333333333333333">33333333333333333333</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</mat-grid-tile>
+			
+			<mat-grid-tile>
+				<mat-form-field>
+					<mat-select placeholder="71F Комиссия отправителя">
+					    <mat-option *ngFor="let cash of cashes" [value]="cash.CODE">{{cash.NAME}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</mat-grid-tile>
+			
+			<mat-grid-tile>
+				<mat-form-field>
+					<input id="docExchangeRate" matInput placeholder="72 Информация получателю">
+				</mat-form-field>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</mat-card>
+		
+</div>
